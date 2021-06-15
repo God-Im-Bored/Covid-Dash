@@ -6,9 +6,9 @@ const app = express()
 const debug = process.env.NODE_ENV === 'test'
 const PORT = 5000
 
-const history = require('./history')
-const stats = require('./stats')
-const countries = require('./countries')
+// const history = require('./history')
+// const stats = require('./stats')
+// const countries = require('./countries')
 
 // logging middleware
 app.use(volleyball.custom({ debug }))
@@ -35,9 +35,9 @@ app.get('*', (req, res) => {
 // include api routes
 app.use('/api', require('./api'))
 
-app.use('./api/history', history)
-app.use('./api/stats', stats)
-app.use('./api/countries', countries)
+// app.use('./api/history', history)
+// app.use('./api/stats', stats)
+// app.use('./api/countries', countries)
 
 // error handling middleware
 app.use((err, req, res, next) => {
