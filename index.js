@@ -37,7 +37,7 @@ app.use('/api', require('./api'))
 
 app.use('./api/history', history)
 app.use('./api/stats', stats)
-app.use('./countries', countries)
+app.use('./api/countries', countries)
 
 // error handling middleware
 app.use((err, req, res, next) => {
