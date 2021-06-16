@@ -1,25 +1,16 @@
 import axios from "axios";
 
-// const express = require('express')
-// const app = express()
-
 const url = "https://covid19.mathdro.id/api";
 
 export const fetchData = async () => {
   try {
-    const res = await axios.get(url);
+    const { data: { confirmed, recovered, deaths, lastUpdate } } = await axios.get(url);
     
-    return res
+
+    return { confirmed, recovered, deaths, lastUpdate }
   } catch (error) {
     console.error(error);
   }
 };
 
 
-// app.use(function(req, res, next) {
-//   res.header('Access-Control-Allow-Origin', 'http://localhost:3000')
-//   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
-//   next()
-// })
-
-// module.exports = app
