@@ -3,7 +3,7 @@ import axios from "axios";
 // const express = require('express')
 // const app = express()
 
-const url = "https://convid19.mathdro.id/api";
+const url = "https://covid19.mathdro.id/api";
 
 export const fetchData = async () => {
   try {
