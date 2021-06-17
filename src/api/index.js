@@ -2,15 +2,42 @@ import axios from "axios";
 
 const url = "https://covid19.mathdro.id/api";
 
+const url2 = "https://data.cityofchicago.org/resource/yhhz-zm2v.json";
+
 export const fetchData = async () => {
   try {
-    const { data: { confirmed, recovered, deaths, lastUpdate } } = await axios.get(url);
-    
+    const {
+      data: { confirmed, recovered, deaths, lastUpdate },
+    } = await axios.get(url);
 
-    return { confirmed, recovered, deaths, lastUpdate }
+    return { confirmed, recovered, deaths, lastUpdate };
   } catch (error) {
     console.error(error);
   }
 };
 
+export const fetchCovidData = async () => {
+  try {
+    const { data } = await axios.get(url2);
 
+    // refined payload with zip code's total cases, deaths and tests, as well as most recent update
+    data.map((location) => {
+      return {
+        zip_code: location.zip_code,
+        cases_total: location.cases_cumulative,
+        deaths_total: location.deaths_cumulative,
+        tests_total: location.tests_cumulative,
+        last_update: new Date(location.week_end).toDateString(),
+      };
+    });
+
+    // filtered payload with only most recently update zip code's instance
+    
+
+    
+
+    
+  } catch (error) {
+    console.error(error);
+  }
+};
