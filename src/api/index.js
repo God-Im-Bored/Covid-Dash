@@ -21,7 +21,7 @@ export const fetchCovidData = async () => {
     const { data } = await axios.get(url2);
 
     // refined payload with zip code's total cases, deaths and tests, as well as most recent update
-    data.map((location) => {
+    const refined = data.map((location) => {
       return {
         zip_code: location.zip_code,
         cases_total: location.cases_cumulative,
@@ -32,11 +32,21 @@ export const fetchCovidData = async () => {
     });
 
     // filtered payload with only most recently update zip code's instance
-    
+    const filtered = Object.values(
+      refined.reduce((acc, obj) => {
+        const curr = acc[obj.zip_code];
+        
+        acc[obj.zip_code] = curr
+          ? curr.last_update > obj.last_update
+            ? obj
+            : curr
+          : obj;
 
-    
+        return acc;
+      }, [])
+    );
 
-    
+    return filtered
   } catch (error) {
     console.error(error);
   }
