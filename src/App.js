@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './App.module.css';
 import { fetchData, fetchCovidData } from './api'
 
-import { Cards, Chart, Countries } from './components'
+import { Cards, Chart, Countries, Zips } from './components'
 
 class App extends React.Component {
   state = {
@@ -18,7 +18,7 @@ class App extends React.Component {
   }
   
   render() {
-    console.log(this.state)
+    // console.log(this.state)
     const { data } = this.state
     return (
       <div className={styles.container}>
@@ -26,6 +26,7 @@ class App extends React.Component {
         <Cards data={data} />
         <Countries />
         <Chart />
+        {/* <Zips /> */}
       </div>
     )
   }

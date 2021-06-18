@@ -16,6 +16,22 @@ export const fetchData = async () => {
   }
 };
 
+export const fetchDailyData = async () => {
+  try {
+    const { data } = await axios.get(`${url}/daily`);
+
+    const modified = data.map((dailyData) => ({
+      confirmed: dailyData.confirmed.total,
+      deaths: dailyData.deaths.total,
+      date: dailyData.reportDate,
+    }));
+
+    return modified
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const fetchCovidData = async () => {
   try {
     const { data } = await axios.get(url2);
@@ -35,7 +51,7 @@ export const fetchCovidData = async () => {
     const filtered = Object.values(
       refined.reduce((acc, obj) => {
         const curr = acc[obj.zip_code];
-        
+
         acc[obj.zip_code] = curr
           ? curr.last_update > obj.last_update
             ? obj
@@ -46,7 +62,7 @@ export const fetchCovidData = async () => {
       }, [])
     );
 
-    return filtered
+    return filtered;
   } catch (error) {
     console.error(error);
   }
