@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { fetchDailyData } from "../../api";
-import { Line, Bar } from "react-chartjs-2";
+import { Line } from "react-chartjs-2";
 
 import styles from "./Chart.module.css";
 
@@ -11,22 +11,23 @@ const Chart = () => {
     const fetchAPI = async () => {
       setDailyData(await fetchDailyData());
     };
-    
+
     fetchAPI();
   });
 
   const options = {
-      scales: {
-          y: {
-              suggestedMin: 6000,
-              suggestedMax: 1000000
-          }
-      }
-  }
+    scales: {
+      yAxis: {
+        beginAtZero: false,
+        min: 100000,
+        max: 10000000,
+      },
+    },
+  };
 
   const lineChart = dailyData.length ? (
     <Line
-        options={options}
+      options={options}
       data={{
         labels: dailyData.map(({ date }) => date),
         datasets: [
