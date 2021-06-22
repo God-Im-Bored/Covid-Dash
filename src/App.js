@@ -28,7 +28,6 @@ class App extends React.Component {
   };
 
   render() {
-    console.log(this.state)
     const { data, country } = this.state;
     return (
       <div className={styles.container}>

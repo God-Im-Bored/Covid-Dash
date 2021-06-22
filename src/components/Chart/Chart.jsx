@@ -13,17 +13,18 @@ const Chart = ({ data: { confirmed, recovered, deaths }, country }) => {
     };
 
     fetchAPI();
-  });
+  }, []);
 
   const options = {
     scales: {
       yAxis: {
         beginAtZero: true,
-        min: 100000,
-        max: 10000000,
+        
       },
     },
   };
+
+
 
   const lineChart = dailyData.length ? (
     <Line
@@ -48,9 +49,6 @@ const Chart = ({ data: { confirmed, recovered, deaths }, country }) => {
     />
   ) : null;
 
-  // console.log(confirmed, recovered, deaths)
-  
-
   const barChart = confirmed ? (
     <Bar
       data={{
@@ -63,7 +61,7 @@ const Chart = ({ data: { confirmed, recovered, deaths }, country }) => {
               "rgba(0, 255, 0, 0.5)",
               "rgba(255, 0, 0, 0.5)",
             ],
-            data: [confirmed, recovered, deaths],
+            data: [confirmed.value, recovered.value, deaths.value],
           },
         ],
       }}
