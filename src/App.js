@@ -1,38 +1,43 @@
-import React from 'react'
-import styles from './App.module.css';
-import { fetchData, fetchCovidData, fetchCountries } from './api'
+import React from "react";
+import styles from "./App.module.css";
+import { fetchData, fetchCovidData } from "./api";
 
-import { Cards, Chart, Countries } from './components'
+import { Cards, Chart, Countries } from "./components";
 
 class App extends React.Component {
   state = {
     data: {},
     covidData: [],
-    countries: []
-  }
+    country: "",
+  };
 
   async componentDidMount() {
-    const fetchedData = await fetchData()
-    const data2 = await fetchCovidData()
-    const countriesList = await fetchCountries()
+    const fetchedData = await fetchData();
+    const data2 = await fetchCovidData();
 
-    
-
-    this.setState({ data: fetchedData, covidData: data2, countries: countriesList })
+    this.setState({
+      data: fetchedData,
+      covidData: data2,
+    });
   }
-  
+
+  handleChange = async (country) => {
+    const fetchedData = await fetchData(country);
+
+    this.setState({ data: fetchedData });
+  };
+
   render() {
-    console.log(this.state)
-    const { data } = this.state
+    // console.log(this.state)
+    const { data } = this.state;
     return (
       <div className={styles.container}>
-        
+        <pre>Global Covid Dashboard</pre>
         <Cards data={data} />
-        <Countries />
+        <Countries handleChange={this.handleChange} />
         <Chart />
-        {/* <Zips /> */}
       </div>
-    )
+    );
   }
 }
 

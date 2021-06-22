@@ -12,13 +12,15 @@ const Chart = () => {
       setDailyData(await fetchDailyData());
     };
 
+    
+
     fetchAPI();
   });
 
   const options = {
     scales: {
       yAxis: {
-        beginAtZero: false,
+        beginAtZero: true,
         min: 100000,
         max: 10000000,
       },

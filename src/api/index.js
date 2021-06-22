@@ -4,11 +4,20 @@ const url = "https://covid19.mathdro.id/api";
 
 const url2 = "https://data.cityofchicago.org/resource/yhhz-zm2v.json";
 
-export const fetchData = async () => {
+export const fetchData = async (country) => {
+  let customUrl = url
+
+  if (country) {
+    customUrl = `${url}/countries/${country}`
+  }
+
+
+
+
   try {
     const {
       data: { confirmed, recovered, deaths, lastUpdate },
-    } = await axios.get(url);
+    } = await axios.get(customUrl);
 
     return { confirmed, recovered, deaths, lastUpdate };
   } catch (error) {
@@ -34,15 +43,11 @@ export const fetchDailyData = async () => {
 
 export const fetchCountries = async () => {
   try {
-    const { data: { countries } } = await axios.get(`${url}/countries`);
+    const {
+      data: { countries },
+    } = await axios.get(`${url}/countries`);
 
-    
-
-    const modified = countries.map((country) => ({
-      name: country.name
-    }))
-
-    return modified
+    return countries.map((country) => country.name)
   } catch (error) {
     console.error(error);
   }
