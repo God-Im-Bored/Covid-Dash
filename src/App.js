@@ -24,18 +24,18 @@ class App extends React.Component {
   handleChange = async (country) => {
     const fetchedData = await fetchData(country);
 
-    this.setState({ data: fetchedData });
+    this.setState({ data: fetchedData, country: country });
   };
 
   render() {
-    // console.log(this.state)
-    const { data } = this.state;
+    console.log(this.state)
+    const { data, country } = this.state;
     return (
       <div className={styles.container}>
         <pre>Global Covid Dashboard</pre>
         <Cards data={data} />
         <Countries handleChange={this.handleChange} />
-        <Chart />
+        <Chart data={data} country={country}/>
       </div>
     );
   }

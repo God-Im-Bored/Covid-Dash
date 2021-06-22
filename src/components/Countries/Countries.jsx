@@ -17,10 +17,10 @@ const Countries = ( { handleChange }) => {
   }, [setCountries]);
 
   return (
-    //   console.log(countries),
-      
     <FormControl>
-      <NativeSelect defaultValue='' onChange={(e) => {handleChange(e.target.value)}}>
+      <NativeSelect defaultValue='' onChange={(e) => 
+        {handleChange(e.target.value)}}>
+
         <option value="">Global</option>
         {countries.map((country, i) => (
           <option key={i} value={country}>
