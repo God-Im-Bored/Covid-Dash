@@ -13,11 +13,11 @@ class App extends React.Component {
 
   async componentDidMount() {
     const fetchedData = await fetchData();
-    const data2 = await fetchCovidData();
+    // const data2 = await fetchCovidData();
 
     this.setState({
       data: fetchedData,
-      covidData: data2,
+      // covidData: data2,
     });
   }
 

@@ -5,14 +5,11 @@ const url = "https://covid19.mathdro.id/api";
 const url2 = "https://data.cityofchicago.org/resource/yhhz-zm2v.json";
 
 export const fetchData = async (country) => {
-  let customUrl = url
+  let customUrl = url;
 
   if (country) {
-    customUrl = `${url}/countries/${country}`
+    customUrl = `${url}/countries/${country}`;
   }
-
-
-
 
   try {
     const {
@@ -47,44 +44,10 @@ export const fetchCountries = async () => {
       data: { countries },
     } = await axios.get(`${url}/countries`);
 
-    return countries.map((country) => country.name)
+    return countries.map((country) => country.name);
   } catch (error) {
     console.error(error);
   }
 };
 
-export const fetchCovidData = async () => {
-  try {
-    const { data } = await axios.get(url2);
 
-    // refined payload with zip code's total cases, deaths and tests, as well as most recent update
-    const refined = data.map((location) => {
-      return {
-        zip_code: location.zip_code,
-        cases_total: location.cases_cumulative,
-        deaths_total: location.deaths_cumulative,
-        tests_total: location.tests_cumulative,
-        last_update: new Date(location.week_end).toDateString(),
-      };
-    });
-
-    // filtered payload with only most recently update zip code's instance
-    const filtered = Object.values(
-      refined.reduce((acc, obj) => {
-        const curr = acc[obj.zip_code];
-
-        acc[obj.zip_code] = curr
-          ? curr.last_update > obj.last_update
-            ? obj
-            : curr
-          : obj;
-
-        return acc;
-      }, [])
-    );
-
-    return filtered;
-  } catch (error) {
-    console.error(error);
-  }
-};
